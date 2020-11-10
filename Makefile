@@ -24,7 +24,13 @@ SRC_RT = main.c \
 			vector.c \
 			color_utils.c \
 			bmp.c \
-			error.c
+			error.c \
+			find_cylinder.c \
+			find_intersection.c \
+			find_plane.c \
+			find_sphere.c \
+			find_square.c \
+			find_triangle.c
 
 OBJ_RT = $(addprefix $(OBJ_DIR),$(SRC_RT:%.c=%.o))
 OBJ = $(OBJ_RT)
