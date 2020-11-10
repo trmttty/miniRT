@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 09:15:00 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/10 21:06:59 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/11 02:57:39 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t		tabsize(char **tab)
 {
-	size_t size;
+	size_t	size;
 
 	size = 0;
 	if (!tab)
@@ -27,21 +27,10 @@ size_t		tabsize(char **tab)
 	return (size);
 }
 
-t_colorf		parse_color(char *s, t_rt *rt)
+void		parse_color_sub(size_t size, char **rgb, t_rt *rt)
 {
-	t_colorf	c;
-	char	**rgb;
-	size_t	size;
-	int		n;
+	int n;
 
-	if (!(rgb = ft_split(s, ',')))
-		handle_perror("Failed to split color", rt);
-	size = tabsize(rgb);
-	if (size != 3)
-	{
-		ft_tabfree(rgb);
-		handle_error(22, "Failed to parse color", rt);
-	}
 	while (size--)
 	{
 		if (ft_strlen(rgb[size]) > 3)
@@ -55,6 +44,22 @@ t_colorf		parse_color(char *s, t_rt *rt)
 			ft_tabfree(rgb);
 			handle_error(22, "RGB colors in range [0-255]", rt);
 		}
+	}
+}
+
+t_colorf	parse_color(char *s, t_rt *rt)
+{
+	t_colorf	c;
+	char		**rgb;
+	size_t		size;
+
+	if (!(rgb = ft_split(s, ',')))
+		handle_perror("Failed to split color", rt);
+	size = tabsize(rgb);
+	if (size != 3)
+	{
+		ft_tabfree(rgb);
+		handle_error(22, "Failed to parse color", rt);
 	}
 	c.r = ft_atoi(rgb[0]) / 255.0f;
 	c.g = ft_atoi(rgb[1]) / 255.0f;
@@ -82,7 +87,7 @@ t_vector	parse_vector(char *s, t_rt *rt)
 	return (v);
 }
 
-double ft_atof(char *str)
+double		ft_atof(char *str)
 {
 	double	ret1;
 	double	ret2;
