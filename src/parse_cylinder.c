@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 16:35:27 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/08/07 00:09:15 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/10 23:00:55 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,9 @@ void		parse_cylinder(t_rt *rt)
 	cy->bottom = parse_vector(rt->tab[1], rt);
 	cy->normal = parse_vector(rt->tab[2], rt);
 	normalize(&cy->normal);
-	// reproduce atof
 	cy->col = parse_color(rt->tab[3], rt);
-	cy->diameter = atof(rt->tab[4]);
-	cy->height = atof(rt->tab[5]);
+	cy->diameter = ft_atof(rt->tab[4]);
+	cy->height = ft_atof(rt->tab[5]);
 	cy->top = add(cy->bottom, multi(cy->normal, cy->height));
 	obj->shape.cy = cy;
 	obj->type = CYLINDER;

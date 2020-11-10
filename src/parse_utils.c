@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 09:15:00 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/08/03 23:44:32 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/10 21:06:59 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,27 @@ t_vector	parse_vector(char *s, t_rt *rt)
 		ft_tabfree(vec3);
 		handle_error(22, "Failed parse vector", rt);
 	}
-	// TODO reproduce atof
-	v.x = atof(vec3[0]);
-	v.y = atof(vec3[1]);
-	v.z = atof(vec3[2]);
+	v.x = ft_atof(vec3[0]);
+	v.y = ft_atof(vec3[1]);
+	v.z = ft_atof(vec3[2]);
 	ft_tabfree(vec3);
 	return (v);
+}
+
+double ft_atof(char *str)
+{
+	double	ret1;
+	double	ret2;
+	int		len;
+
+	ret1 = (double)ft_atoi(str);
+	while (*str && *str != '.')
+		str++;
+	if (*str == '.')
+		str++;
+	ret2 = (double)ft_atoi(str);
+	len = ft_strlen(str);
+	while (len--)
+		ret2 /= 10;
+	return (ret1 + ((ret1 >= 0) ? ret2 : -ret2));
 }

@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 01:27:28 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/08/05 00:36:48 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/10 23:00:05 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	parse_sphere(t_rt *rt)
 	if (tabsize(rt->tab) != 4)
 		handle_error(22, "Failed to parse sp", rt);
 	sp->sc = parse_vector(rt->tab[1], rt);
-	// TODO reprodude atof
-	sp->diameter = atof(rt->tab[2]);
+	sp->diameter = ft_atof(rt->tab[2]);
 	sp->color = parse_color(rt->tab[3], rt);
 	obj->shape.sp = sp;
 	obj->type = SPHERE;

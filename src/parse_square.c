@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 14:23:40 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/08/10 10:21:33 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/10 22:59:55 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	parse_square(t_rt *rt)
 	sq->sc = parse_vector(rt->tab[1], rt);
 	sq->normal = parse_vector(rt->tab[2], rt);
 	normalize(&sq->normal);
-	// reproduce atof
-	sq->side = atof(rt->tab[3]);
+	sq->side = ft_atof(rt->tab[3]);
 	sq->col = parse_color(rt->tab[4], rt);
 	sq->up = (t_vector){0, 1, 0};
 	if (norm(cross(sq->up, sq->normal)) == 0)
