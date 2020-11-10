@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttarumot <ttarumot@student.42tokyo.co.j    +#+  +:+       +#+        */
+/*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 15:29:04 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/06 11:00:50 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/11 02:35:29 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	fill_bmp(char **data, t_rt *my_mlx)
 		x = -1;
 		while (++x < my_mlx->res.x)
 		{
-			j = (x * (my_mlx->cam->img.bits_per_pixel / 8)) + (y * my_mlx->cam->img.line_length);
+			j = (x * (my_mlx->cam->img.bits_per_pixel / 8)) + \
+				(y * my_mlx->cam->img.line_length);
 			*(*data + i++) = *(my_mlx->cam->img.addr + j++);
 			*(*data + i++) = *(my_mlx->cam->img.addr + j++);
 			*(*data + i++) = *(my_mlx->cam->img.addr + j);
@@ -65,16 +66,14 @@ void	export_bmp(char *filename, t_rt *my_mlx)
 
 	size = my_mlx->res.y * my_mlx->res.x * 3;
 	if (!(data = malloc((size + HEADER_SIZE))))
-		;
-		// print_error_and_exit(-7);
+		handle_perror("Failed to malloc bmp data", my_mlx);
 	i = 0;
 	while (i < size + HEADER_SIZE)
 		data[i++] = 0;
 	header_bmp(&data, my_mlx);
 	fill_bmp(&data, my_mlx);
 	if ((fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644)) <= 0)
-		;
-		// print_error_and_exit(-8);
+		handle_perror("Failed to read bmp file", my_mlx);
 	write(fd, data, (size + HEADER_SIZE));
 	close(fd);
 }
@@ -86,7 +85,6 @@ char	*create_bmp_filename(char *file, int i)
 
 	if (!(filename = malloc(sizeof(char) * (i + 5))))
 		;
-		// print_error_and_exit(-7);
 	n = -1;
 	while (++n <= i)
 		*(filename + n) = *(file + n);
