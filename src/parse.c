@@ -6,12 +6,11 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 22:45:45 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/08/09 01:58:29 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/11 02:59:29 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
 
 static void	parse_line(t_rt *rt)
 {
