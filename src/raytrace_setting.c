@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 13:42:49 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/08/10 10:15:16 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/11 03:03:20 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ void	calc_ray(t_rt *rt, t_raytrace *r, int x, int y)
 	r->eye_ray.start = rt->cam->vp;
 	r->eye_ray.dir = sub(v3, rt->cam->vp);
 	normalize(&r->eye_ray.dir);
-	// printf("%f %f %f\n", r->dx.x, r->dx.y, r->dx.z);
-	// printf("%f %f %f\n", r->dy.x, r->dy.y, r->dy.z);
-	// printf("%f %f %f\n", v3.x, v3.y, v3.z);
 }
 
 void	set_raytrace(t_rt *rt)
