@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 15:00:17 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/10 20:32:34 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/12 09:48:02 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,14 @@ typedef struct	s_raytrace
 	t_colorf	col;
 	t_vector	light_dir;
 }				t_raytrace;
+
+typedef struct	s_discriminant
+{
+	float		a;
+	float		b;
+	float		c;
+	float		d;
+}				t_discriminant;
 
 // parse
 void			parse_rt(int argc, char **argv, t_rt *rt);
