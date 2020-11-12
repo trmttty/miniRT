@@ -19,7 +19,8 @@ SRC_RT = main.c \
 			parse_utils.c \
 			create_img.c \
 			raytrace_setting.c \
-			raytrace.c \
+			raytrace_1.c \
+			raytrace_2.c \
 			camera.c \
 			vector_1.c \
 			vector_2.c \
