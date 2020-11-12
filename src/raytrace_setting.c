@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 13:42:49 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/11 03:03:20 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/12 11:24:55 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,13 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 
 void	calc_ray(t_rt *rt, t_raytrace *r, int x, int y)
 {
-	float aspect;
-	float pndc_x;
-	float pndc_y;
-	float pc_x;
-	float pc_y;
-	t_vector v1;
-	t_vector v2;
-	t_vector v3;
-	t_vector v4;
+	t_calc_ray	cr;
 
-	aspect = rt->res.x / (float)rt->res.y;
-	pndc_x = (x + 0.5f) / rt->res.x;
-	pndc_y = (y + 0.5f) / rt->res.y;
-	pc_x = (2 * pndc_x - 1) * aspect * tan((rt->cam->fov / 2.0f) * (M_PI / 180.0f));
-	pc_y = (1 - 2 * pndc_y) * tan((rt->cam->fov / 2.0f) * (M_PI / 180.0f));
-	
+	cr.aspect = rt->res.x / (float)rt->res.y;
+	cr.pndc_x = (x + 0.5f) / rt->res.x;
+	cr.pndc_y = (y + 0.5f) / rt->res.y;
+	cr.pc_x = (2 * cr.pndc_x - 1) * cr.aspect * tan((rt->cam->fov / 2.0f) * (M_PI / 180.0f));
+	cr.pc_y = (1 - 2 * cr.pndc_y) * tan((rt->cam->fov / 2.0f) * (M_PI / 180.0f));
 	rt->cam->up = vectornew(0, 1, 0);
 	if (norm(cross(rt->cam->up, rt->cam->orient)) == 0)
 		rt->cam->up = vectornew(0, 0, 1);
@@ -45,14 +36,11 @@ void	calc_ray(t_rt *rt, t_raytrace *r, int x, int y)
 	normalize(&r->dx);
 	r->dy = cross(rt->cam->orient, r->dx);
 	normalize(&r->dy);
-
-	v1 = multi(r->dx, pc_x);
-	v2 = multi(r->dy, pc_y);
-	v3 = add(rt->cam->vp, rt->cam->orient);
-	v3 = add(v3, v1);
-	v3 = add(v3, v2);
+	cr.v = add(rt->cam->vp, rt->cam->orient);
+	cr.v = add(cr.v, multi(r->dx, cr.pc_x));
+	cr.v = add(cr.v, multi(r->dy, cr.pc_y));
 	r->eye_ray.start = rt->cam->vp;
-	r->eye_ray.dir = sub(v3, rt->cam->vp);
+	r->eye_ray.dir = sub(cr.v, rt->cam->vp);
 	normalize(&r->eye_ray.dir);
 }
 

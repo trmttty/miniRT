@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 15:00:17 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/12 09:48:02 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/12 11:22:04 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,16 @@ typedef struct	s_raytrace
 	t_colorf	col;
 	t_vector	light_dir;
 }				t_raytrace;
+
+typedef struct	s_calc_ray
+{
+	float		aspect;
+	float		pndc_x;
+	float		pndc_y;
+	float		pc_x;
+	float 		pc_y;
+	t_vector	v;
+}				t_calc_ray;
 
 typedef struct	s_discriminant
 {
