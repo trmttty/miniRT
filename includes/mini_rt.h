@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 15:00:17 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/12 11:22:04 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/12 13:17:42 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,12 @@ typedef struct	s_calc_ray
 	float 		pc_y;
 	t_vector	v;
 }				t_calc_ray;
+
+typedef struct	s_calc_reflection
+{
+	float		nl_dot;
+	t_colorf	t_c;
+}				t_calc_reflection;
 
 typedef struct	s_discriminant
 {
