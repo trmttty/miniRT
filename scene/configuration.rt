@@ -1,5 +1,5 @@
 # rezolution
-R 2 10
+R 100 100
 
 # ambient light
 A 0.3 255,255,255

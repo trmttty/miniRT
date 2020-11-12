@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:48:54 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/08/09 02:11:28 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/12 18:49:15 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ void		parse_resolution(t_rt *rt)
 		rt->res.y = sizey;
 	rt->res.read = 1;
 	ft_tabfree(rt->tab);
+	rt->tab = NULL;
 }
