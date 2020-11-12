@@ -6,49 +6,72 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 02:16:29 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/11 02:21:46 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/12 11:07:47 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mini_rt.h>
 
-int			find_cylinder(t_rt *rt, t_ray *ray, t_ip *intp)
+static void		discriminant(t_rt *rt, t_ray *ray, t_discriminant *d)
 {
-	t_cy		*cy = rt->obj->shape.cy;
-	t_vector	v_ce, A, dP, B;
-	float		a, b, c, d;
-	float		t;
+	t_cy		*cy;
+	t_vector	dp;
+	t_vector	a;
+	t_vector	b;
 
-	dP = sub(ray->start, cy->bottom);
-	A = sub(ray->dir, multi(cy->normal, dot(ray->dir, cy->normal)));
-	a = dot(A, A);
-	B = sub(dP, multi(cy->normal, dot(dP, cy->normal)));	
-	b = 2 * dot(A, B);
-	c = dot(B, B) - SQR(cy->diameter / 2.0f);
-	d = SQR(b) - 4 * a * c;
+	cy = rt->obj->shape.cy;
+	dp = sub(ray->start, cy->bottom);
+	a = sub(ray->dir, multi(cy->normal, dot(ray->dir, cy->normal)));
+	d->a = dot(a, a);
+	b = sub(dp, multi(cy->normal, dot(dp, cy->normal)));
+	d->b = 2 * dot(a, b);
+	d->c = dot(b, b) - SQR(cy->diameter / 2.0f);
+	d->d = SQR(d->b) - 4 * d->a * d->c;
+}
+
+static float	calc_t(t_discriminant *d)
+{
+	float	t;
+	float	t1;
+	float	t2;
+
 	t = -1.0f;
-	if (d == 0)
-		t = -b / (2 * a);
-	else if (d > 0)
+	if (d->d == 0)
+		t = -d->b / (2 * d->a);
+	else if (d->d > 0)
 	{
-		float	t1 = (-b + sqrt(d)) / (2 * a);
-		float	t2 = (-b - sqrt(d)) / (2 * a);
-	
-		if (t1 > 0)	t = t1;
-		if (t2 > 0 && t2 < t1) t = t2;
+		t1 = (-d->b + sqrt(d->d)) / (2 * d->a);
+		t2 = (-d->b - sqrt(d->d)) / (2 * d->a);
+		if (t1 > 0)
+			t = t1;
+		if (t2 > 0 && t2 < t1)
+			t = t2;
 	}
+	return (t);
+}
+
+int				find_cylinder(t_rt *rt, t_ray *ray, t_ip *intp)
+{
+	t_cy			*cy;
+	t_discriminant	d;
+	t_vector		p;
+	float			t;
+
+	discriminant(rt, ray, &d);
+	t = calc_t(&d);
 	if (t > 0)
 	{
-		t_vector p;
-		
+		cy = rt->obj->shape.cy;
 		p = add(ray->start, multi(ray->dir, t));
-
 		if (dot(cy->normal, sub(p, cy->bottom)) > 0
 		&& dot(cy->normal, sub(p, cy->top)) < 0)
 		{
 			intp->dist = t;
 			intp->pos = p;
-			intp->normal = sub(intp->pos, add(cy->bottom, multi(cy->normal, sqrt(dot(sub(intp->pos, cy->bottom), sub(intp->pos, cy->bottom)) - SQR(cy->diameter / 2.0f)))));
+			intp->normal = sub(intp->pos, add(cy->bottom, multi(cy->normal, \
+							sqrt(dot(sub(intp->pos, cy->bottom), \
+							sub(intp->pos, cy->bottom)) - \
+							SQR(cy->diameter / 2.0f)))));
 			normalize(&intp->normal);
 			return (1);
 		}
@@ -56,23 +79,20 @@ int			find_cylinder(t_rt *rt, t_ray *ray, t_ip *intp)
 	return (0);
 }
 
-int			find_cap(t_rt *rt, t_ray *ray, t_ip *intp)
+int				find_cap(t_rt *rt, t_ray *ray, t_ip *intp)
 {
 	t_cp		*cp;
+	t_vector	p;
 	float		dn_dot;
-	t_vector	s_p;
 	float		t;
 
 	cp = rt->obj->shape.cp;
 	dn_dot = dot(ray->dir, cp->normal);
 	if (dn_dot != 0)
 	{
-		s_p = sub(ray->start, cp->pos);
-		t = -dot(s_p, cp->normal) / dn_dot;
+		t = -dot(sub(ray->start, cp->pos), cp->normal) / dn_dot;
 		if (t > 0)
 		{
-			t_vector p;
-
 			p = sub(add(ray->start, multi(ray->dir, t)), cp->pos);
 			if (dot(p, p) < SQR(cp->diameter / 2.0f))
 			{
