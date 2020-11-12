@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 15:00:17 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/12 13:17:42 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/12 15:48:02 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,5 +183,6 @@ void			export_bmp(char *filename, t_rt *my_mlx);
 // error
 void			handle_error(int errnum, char *message, t_rt *rt);
 void			handle_perror(char *message, t_rt *rt);
+void			handle_argument_error(char *message);
 
 #endif

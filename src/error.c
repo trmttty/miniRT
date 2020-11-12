@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 23:04:48 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/11 02:40:10 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/12 15:47:44 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,13 @@ void	handle_perror(char *message, t_rt *rt)
 	(void)rt;
 	ft_putstr_fd("Error\n", 2);
 	perror(message);
+	exit(1);
+}
+
+void	handle_argument_error(char *message)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(message, 2);
+	ft_putstr_fd("\n", 2);
 	exit(1);
 }
