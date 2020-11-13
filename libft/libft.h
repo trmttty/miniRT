@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 13:38:08 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/10 20:26:16 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/13 09:17:21 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ void				ft_putstr(char *s);
 int					ft_isupper(int c);
 int					ft_islower(int c);
 void				ft_tabfree(char **tab);
+double				ft_atof(char *str);
 
 #endif

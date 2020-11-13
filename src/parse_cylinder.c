@@ -6,21 +6,34 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 16:35:27 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/10 23:00:55 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/13 08:46:30 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
+static void	parse_cap_sub(t_cy *cy, t_cp *cap, t_obj *obj)
+{
+	cap->diameter = cy->diameter;
+	cap->col = cy->col;
+	obj->shape.cp = cap;
+	obj->type = CAP;
+	obj->col = cap->col;
+}
+
 static void	parse_cap(t_rt *rt, t_cy *cy, int p)
 {
 	t_cp	*cap;
 	t_obj	*obj;
+	t_list	*element;
 
 	if (!(cap = ft_calloc(1, sizeof(t_cp))))
 		handle_perror("Failed to calloc cap", rt);
 	if (!(obj = ft_calloc(1, sizeof(t_obj))))
 		handle_perror("Failed to calloc cap object", rt);
+	if (!(element = ft_lstnew(obj)))
+		handle_perror("Failed to lstnew obj", rt);
+	ft_lstadd_back(&rt->obj_lst, ft_lstnew(obj));
 	if (p == TOP)
 	{
 		cap->pos = cy->top;
@@ -31,12 +44,7 @@ static void	parse_cap(t_rt *rt, t_cy *cy, int p)
 		cap->pos = cy->bottom;
 		cap->normal = multi(cy->normal, -1);
 	}
-	cap->diameter = cy->diameter;
-	cap->col = cy->col;
-	obj->shape.cp = cap;
-	obj->type = CAP;
-	obj->col = cap->col;
-	ft_lstadd_back(&rt->obj_lst, ft_lstnew(obj));
+	parse_cap_sub(cy, cap, obj);
 }
 
 void		parse_cylinder(t_rt *rt)

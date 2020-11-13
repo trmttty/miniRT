@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 11:19:22 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/10 23:01:18 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/12 21:13:39 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	parse_ambient(t_rt *rt)
 	rt->amb.color = parse_color(rt->tab[2], rt);
 	rt->amb.read = 1;
 	ft_tabfree(rt->tab);
+	rt->tab = NULL;
 }

@@ -21,7 +21,6 @@ SRC_RT = main.c \
 			raytrace_setting.c \
 			raytrace_1.c \
 			raytrace_2.c \
-			camera.c \
 			vector_1.c \
 			vector_2.c \
 			color_utils.c \

@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 15:00:17 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/12 15:48:02 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/13 09:19:22 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void			parse_triangle(t_rt *rt);
 size_t			tabsize(char **tab);
 t_colorf		parse_color(char *s, t_rt *rt);
 t_vector		parse_vector(char *s, t_rt *rt);
-double			ft_atof(char *str);
+t_vector		parse_normal(char *s, t_rt *rt);
 
 // create image
 void			create_img(t_rt *rt);

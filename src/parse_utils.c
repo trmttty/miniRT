@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 09:15:00 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/11 02:57:39 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/13 09:18:08 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t		tabsize(char **tab)
 	return (size);
 }
 
-void		parse_color_sub(size_t size, char **rgb, t_rt *rt)
+static void	check_color(size_t size, char **rgb, t_rt *rt)
 {
 	int n;
 
@@ -61,6 +61,7 @@ t_colorf	parse_color(char *s, t_rt *rt)
 		ft_tabfree(rgb);
 		handle_error(22, "Failed to parse color", rt);
 	}
+	check_color(size, rgb, rt);
 	c.r = ft_atoi(rgb[0]) / 255.0f;
 	c.g = ft_atoi(rgb[1]) / 255.0f;
 	c.b = ft_atoi(rgb[2]) / 255.0f;
@@ -87,20 +88,16 @@ t_vector	parse_vector(char *s, t_rt *rt)
 	return (v);
 }
 
-double		ft_atof(char *str)
+t_vector	parse_normal(char *s, t_rt *rt)
 {
-	double	ret1;
-	double	ret2;
-	int		len;
+	t_vector	normal;
 
-	ret1 = (double)ft_atoi(str);
-	while (*str && *str != '.')
-		str++;
-	if (*str == '.')
-		str++;
-	ret2 = (double)ft_atoi(str);
-	len = ft_strlen(str);
-	while (len--)
-		ret2 /= 10;
-	return (ret1 + ((ret1 >= 0) ? ret2 : -ret2));
+	normal = parse_vector(s, rt);
+	if (normal.x < -1 || normal.x > 1)
+		handle_error(22, "Normalized orientation vector in range [-1,1]", rt);
+	if (normal.y < -1 || normal.y > 1)
+		handle_error(22, "Normalized orientation vector in range [-1,1]", rt);
+	if (normal.z < -1 || normal.z > 1)
+		handle_error(22, "Normalized orientation vector in range [-1,1]", rt);
+	return (normal);
 }
