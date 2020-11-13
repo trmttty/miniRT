@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 07:09:47 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/13 12:11:29 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/13 12:34:25 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	next_camera(int keycode, t_rt *rt)
 		mlx_clear_window(rt->mlx, rt->win);
 		mlx_put_image_to_window(rt->mlx, rt->win, rt->cam->img.img, 0, 0);
 	}
-	mlx_hook(rt->win, 2, 1L<<0, next_camera, rt);
+	mlx_hook(rt->win, 2, 1L << 0, next_camera, rt);
 	mlx_loop(rt->mlx);
 	return (0);
 }
@@ -55,15 +55,13 @@ int			main(int argc, char *argv[])
 	create_img(&rt);
 	rt.cam_crrnt = rt.cam_lst;
 	rt.cam = (t_camera*)(rt.cam_crrnt->content);
-	// create_bmp_image(&rt, "test");
 	if (rt.save)
 		create_bmp(&rt);
-		// export_bmp("test", &rt);
 	else
 	{
 		mlx_put_image_to_window(rt.mlx, rt.win, rt.cam->img.img, 0, 0);
-		mlx_hook(rt.win, 2, 1L<<0, next_camera, &rt);
-		mlx_hook(rt.win, 17, 1L<<17, exit_minirt, &rt);
+		mlx_hook(rt.win, 2, 1L << 0, next_camera, &rt);
+		mlx_hook(rt.win, 17, 1L << 17, exit_minirt, &rt);
 		mlx_loop(rt.mlx);
 	}
 	return (0);
