@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 15:23:16 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/08/09 01:38:01 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/13 22:23:11 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct	s_cy
 	float		diameter;
 	float		height;
 	t_colorf	col;
+	int			inside;
 }				t_cy;
 
 typedef struct	s_cp

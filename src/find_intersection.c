@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 02:16:29 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/11 02:23:06 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 00:31:17 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int			find_intersection(t_rt *rt, t_ray *ray, t_ip *intp)
 		return (find_square(rt, ray, intp));
 	if (rt->obj->type == CYLINDER)
 		return (find_cylinder(rt, ray, intp));
-	if (rt->obj->type == CAP)
-		return (find_cap(rt, ray, intp));
 	if (rt->obj->type == TRIANGLE)
 		return (find_triangle(rt, ray, intp));
 	return (0);

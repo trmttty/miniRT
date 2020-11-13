@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 02:16:29 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/12 11:07:47 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 00:39:03 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,22 @@ static void		discriminant(t_rt *rt, t_ray *ray, t_discriminant *d)
 	d->d = SQR(d->b) - 4 * d->a * d->c;
 }
 
-static float	calc_t(t_discriminant *d)
+static int		is_cylinder(t_cy *cy, t_ray *ray, float_t t)
 {
-	float	t;
-	float	t1;
-	float	t2;
+	t_vector	p;
+
+	p = add(ray->start, multi(ray->dir, t));
+	return (dot(cy->normal, sub(p, cy->bottom)) > 0 \
+			&& dot(cy->normal, sub(p, cy->top)) < 0 \
+			&& t > 0);
+}
+
+static float	calc_t(t_discriminant *d, t_cy *cy, t_ray *ray)
+{
+	float		t;
+	float		t1;
+	float		t2;
+	t_vector	p;
 
 	t = -1.0f;
 	if (d->d == 0)
@@ -42,10 +53,16 @@ static float	calc_t(t_discriminant *d)
 	{
 		t1 = (-d->b + sqrt(d->d)) / (2 * d->a);
 		t2 = (-d->b - sqrt(d->d)) / (2 * d->a);
-		if (t1 > 0)
+		if (is_cylinder(cy, ray, t1))
+		{
 			t = t1;
-		if (t2 > 0 && t2 < t1)
+			cy->inside = 1;
+		}
+		if (is_cylinder(cy, ray, t2))
+		{
 			t = t2;
+			cy->inside = 0;
+		}
 	}
 	return (t);
 }
@@ -58,51 +75,21 @@ int				find_cylinder(t_rt *rt, t_ray *ray, t_ip *intp)
 	float			t;
 
 	discriminant(rt, ray, &d);
-	t = calc_t(&d);
-	if (t > 0)
+	cy = rt->obj->shape.cy;
+	t = calc_t(&d, cy, ray);
+	p = add(ray->start, multi(ray->dir, t));
+	if (t > 0 && dot(cy->normal, sub(p, cy->bottom)) > 0
+	&& dot(cy->normal, sub(p, cy->top)) < 0)
 	{
-		cy = rt->obj->shape.cy;
-		p = add(ray->start, multi(ray->dir, t));
-		if (dot(cy->normal, sub(p, cy->bottom)) > 0
-		&& dot(cy->normal, sub(p, cy->top)) < 0)
-		{
-			intp->dist = t;
-			intp->pos = p;
-			intp->normal = sub(intp->pos, add(cy->bottom, multi(cy->normal, \
-							sqrt(dot(sub(intp->pos, cy->bottom), \
-							sub(intp->pos, cy->bottom)) - \
-							SQR(cy->diameter / 2.0f)))));
-			normalize(&intp->normal);
-			return (1);
-		}
-	}
-	return (0);
-}
-
-int				find_cap(t_rt *rt, t_ray *ray, t_ip *intp)
-{
-	t_cp		*cp;
-	t_vector	p;
-	float		dn_dot;
-	float		t;
-
-	cp = rt->obj->shape.cp;
-	dn_dot = dot(ray->dir, cp->normal);
-	if (dn_dot != 0)
-	{
-		t = -dot(sub(ray->start, cp->pos), cp->normal) / dn_dot;
-		if (t > 0)
-		{
-			p = sub(add(ray->start, multi(ray->dir, t)), cp->pos);
-			if (dot(p, p) < SQR(cp->diameter / 2.0f))
-			{
-				intp->dist = t;
-				intp->pos = add(ray->start, multi(ray->dir, t));
-				intp->normal = cp->normal;
-				normalize(&intp->normal);
-				return (1);
-			}
-		}
+		intp->dist = t;
+		intp->pos = p;
+		intp->normal = sub(intp->pos, add(cy->bottom, multi(cy->normal, \
+		sqrt(dot(sub(intp->pos, cy->bottom), sub(intp->pos, cy->bottom)) -\
+		SQR(cy->diameter / 2.0f)))));
+		if (cy->inside)
+			intp->normal = multi(intp->normal, -1.0f);
+		normalize(&intp->normal);
+		return (1);
 	}
 	return (0);
 }
