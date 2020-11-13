@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 09:43:41 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/12 13:21:21 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:11:59 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	calc_specular(t_rt *rt, t_raytrace *r, t_obj *obj, \
 		inv_eye_dir = multi(r->eye_ray.dir, -1);
 		normalize(&inv_eye_dir);
 		vr_dot = dot(ref_dir, inv_eye_dir);
-		vr_dot = CLAMP(vr_dot, 0, 1);
+		vr_dot = ft_clamp(vr_dot, 0, 1);
 		vr_dot_pow = pow(vr_dot, 50.0);
 		cr->t_c = c_multi(rt->light->color, 0.3);
 		cr->t_c = c_multi(cr->t_c, vr_dot_pow);
@@ -40,7 +40,7 @@ static void	calc_reflection(t_rt *rt, t_raytrace *r, t_obj *obj)
 	t_calc_reflection	cr;
 
 	cr.nl_dot = dot(r->light_dir, obj->ip.normal);
-	cr.nl_dot = CLAMP(cr.nl_dot, 0, 1);
+	cr.nl_dot = ft_clamp(cr.nl_dot, 0, 1);
 	cr.t_c = c_multi(rt->light->color, rt->light->ratio);
 	cr.t_c = c_multi(cr.t_c, cr.nl_dot);
 	cr.t_c = calc_color(cr.t_c, obj->col);

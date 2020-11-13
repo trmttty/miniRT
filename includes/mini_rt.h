@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 15:00:17 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/14 01:00:59 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:13:44 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@
 # define CYLINDER	3
 # define TRIANGLE	4
 
-// # define SQR(x) ((x)*(x))
-# define MIN(a, b) (a < b ? a : b)
-# define MAX(a, b) (a > b ? a : b)
-# define CLAMP(v, minv, maxv) MIN(MAX(v, minv), maxv)
 # define EPSILON 1 / 510.0f
-
 # define BMP_FILE_HEADER_SIZE 14
 # define BMP_INFO_HEADER_SIZE 40
 # define HEADER_SIZE 122
@@ -202,5 +197,6 @@ void			handle_argument_error(char *message);
 ** utils
 */
 float			ft_sqr(float x);
+float			ft_clamp(float v, float minv, float maxv);
 
 #endif

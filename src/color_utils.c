@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 23:47:50 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/12 21:06:09 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:12:44 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_colorf		calc_color(t_colorf c1, t_colorf c2)
 
 int				convert_colorf(t_colorf c)
 {
-	return (((int)(255 * CLAMP(c.r, 0, 1)) << 16) + \
-			((int)(255 * CLAMP(c.g, 0, 1)) << 8) + \
-			(int)(255 * CLAMP(c.b, 0, 1)));
+	return (((int)(255 * ft_clamp(c.r, 0, 1)) << 16) + \
+			((int)(255 * ft_clamp(c.g, 0, 1)) << 8) + \
+			(int)(255 * ft_clamp(c.b, 0, 1)));
 }
