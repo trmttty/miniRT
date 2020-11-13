@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 22:45:45 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/13 09:45:05 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:25:13 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,6 @@ void		parse_rt(int argc, char **argv, t_rt *rt)
 		handle_perror("Failed close file", rt);
 	if (rt->res.read == 0)
 		handle_perror("Resolution must be declared", rt);
+	if (rt->cam_lst == NULL)
+		handle_perror("Camera must be declared", rt);
 }

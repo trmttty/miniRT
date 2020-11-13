@@ -6,17 +6,22 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 07:09:47 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/12 15:58:07 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/13 10:48:17 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
+int			exit_minirt(int keycode, t_rt *rt)
+{
+	exit(EXIT_SUCCESS);
+}
+
 static int	next_camera(int keycode, t_rt *rt)
 {
 	if (keycode == 53)
 	{
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	if (keycode == 48)
 	{
@@ -32,15 +37,9 @@ static int	next_camera(int keycode, t_rt *rt)
 	return (0);
 }
 
-int			print(int keycode, t_rt *rt)
-{
-	printf("a\n");
-	return (0);
-}
-
 void		check_argument(int argc, char *argv[])
 {
-	if (!(argc == 2 || (argc == 3 && ft_strncmp(argv[2], "–-save", 7) == 0)))
+	if (!(argc == 2 || (argc == 3 && ft_strncmp(argv[2], "--save", 7) == 0)))
 		handle_argument_error("Invalid arguments");
 	if (ft_strncmp(ft_strrchr(argv[1], '.'), ".rt", 4))
 		handle_argument_error("Invalid file extension");
@@ -52,18 +51,19 @@ int			main(int argc, char *argv[])
 
 	check_argument(argc, argv);
 	ft_memset(&rt, 0, sizeof(t_rt));
-	if (!(rt.mlx = mlx_init()))
-		handle_error(4, "Failed to initialize Minilibx", &rt);
 	parse_rt(argc, argv, &rt);
 	create_img(&rt);
-	// free all;
 	rt.cam_crrnt = rt.cam_lst;
 	rt.cam = (t_camera*)(rt.cam_crrnt->content);
 	// create_bmp_image(&rt, "test");
-	export_bmp("test", &rt);
-	mlx_put_image_to_window(rt.mlx, rt.win, rt.cam->img.img, 0, 0);
-	mlx_hook(rt.win, 2, 1L<<0, next_camera, &rt);
-	mlx_hook(rt.win, 17, 1L<<17, print, &rt);
-	mlx_loop(rt.mlx);
+	if (rt.save)
+		export_bmp("test", &rt);
+	else
+	{
+		mlx_put_image_to_window(rt.mlx, rt.win, rt.cam->img.img, 0, 0);
+		mlx_hook(rt.win, 2, 1L<<0, next_camera, &rt);
+		mlx_hook(rt.win, 17, 1L<<17, exit_minirt, &rt);
+		mlx_loop(rt.mlx);
+	}
 	return (0);
 }
