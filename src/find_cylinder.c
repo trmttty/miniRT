@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 02:16:29 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/14 00:39:03 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:02:51 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void		discriminant(t_rt *rt, t_ray *ray, t_discriminant *d)
 	d->a = dot(a, a);
 	b = sub(dp, multi(cy->normal, dot(dp, cy->normal)));
 	d->b = 2 * dot(a, b);
-	d->c = dot(b, b) - SQR(cy->diameter / 2.0f);
-	d->d = SQR(d->b) - 4 * d->a * d->c;
+	d->c = dot(b, b) - ft_sqr(cy->diameter / 2.0f);
+	d->d = ft_sqr(d->b) - 4 * d->a * d->c;
 }
 
 static int		is_cylinder(t_cy *cy, t_ray *ray, float_t t)
@@ -85,7 +85,7 @@ int				find_cylinder(t_rt *rt, t_ray *ray, t_ip *intp)
 		intp->pos = p;
 		intp->normal = sub(intp->pos, add(cy->bottom, multi(cy->normal, \
 		sqrt(dot(sub(intp->pos, cy->bottom), sub(intp->pos, cy->bottom)) -\
-		SQR(cy->diameter / 2.0f)))));
+		ft_sqr(cy->diameter / 2.0f)))));
 		if (cy->inside)
 			intp->normal = multi(intp->normal, -1.0f);
 		normalize(&intp->normal);

@@ -31,7 +31,8 @@ SRC_RT = main.c \
 			find_plane.c \
 			find_sphere.c \
 			find_square.c \
-			find_triangle.c
+			find_triangle.c \
+			utils.c
 
 OBJ_RT = $(addprefix $(OBJ_DIR),$(SRC_RT:%.c=%.o))
 OBJ = $(OBJ_RT)

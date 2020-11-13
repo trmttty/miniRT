@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 15:00:17 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/13 12:11:19 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:00:59 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,18 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define SPHERE 0
-# define PLANE 1
-# define SQUARE 2
-# define CYLINDER 3
-# define CAP 4
-# define TRIANGLE 5
-# define TOP 10
-# define BOTTOM 11
+# define SPHERE		0
+# define PLANE		1
+# define SQUARE		2
+# define CYLINDER	3
+# define TRIANGLE	4
 
-# define SQR(x) ((x)*(x))
+// # define SQR(x) ((x)*(x))
 # define MIN(a, b) (a < b ? a : b)
 # define MAX(a, b) (a > b ? a : b)
 # define CLAMP(v, minv, maxv) MIN(MAX(v, minv), maxv)
 # define EPSILON 1 / 510.0f
 
-# define BMP_FILE_NAME "img.bmp"
 # define BMP_FILE_HEADER_SIZE 14
 # define BMP_INFO_HEADER_SIZE 40
 # define HEADER_SIZE 122
@@ -124,7 +120,9 @@ typedef struct	s_discriminant
 	float		d;
 }				t_discriminant;
 
-// parse
+/*
+** parse
+*/
 void			parse_rt(int argc, char **argv, t_rt *rt);
 void			parse_resolution(t_rt *rt);
 void			parse_ambient(t_rt *rt);
@@ -140,15 +138,21 @@ t_colorf		parse_color(char *s, t_rt *rt);
 t_vector		parse_vector(char *s, t_rt *rt);
 t_vector		parse_normal(char *s, t_rt *rt);
 
-// create image
+/*
+** img
+*/
 void			create_img(t_rt *rt);
 void			set_raytrace(t_rt *rt);
 void			raytrace(t_rt *rt, t_raytrace *r);
 
-// camera
+/*
+** camera
+*/
 void			set_camera(t_rt *rt);
 
-// vector
+/*
+** vector
+*/
 t_vector		sub(t_vector a, t_vector b);
 t_vector		add(t_vector a, t_vector b);
 t_vector		multi(t_vector a, float m);
@@ -160,13 +164,17 @@ float			squared_norm(const t_vector v);
 float			normalize(t_vector *v);
 float			norm(const t_vector v);
 
-// color
+/*
+** color
+*/
 t_colorf		c_multi(t_colorf c, float r);
 t_colorf		c_add(t_colorf c1, t_colorf c2);
 t_colorf		calc_color(t_colorf c1, t_colorf c2);
 int				convert_colorf(t_colorf c);
 
-// intersection
+/*
+** intersection
+*/
 int				get_nearest_object(t_rt *rt, t_ray *ray, t_obj **obj);
 int				find_intersection(t_rt *rt, t_ray *ray, t_ip *intp);
 int				find_sphere(t_rt *rt, t_ray *ray, t_ip *intp);
@@ -176,14 +184,23 @@ int				find_cylinder(t_rt *rt, t_ray *ray, t_ip *intp);
 int				find_cap(t_rt *rt, t_ray *ray, t_ip *intp);
 int				find_triangle(t_rt *rt, t_ray *ray, t_ip *intp);
 
-// bmp
+/*
+** bmp
+*/
 void			create_bmp_image(t_rt *rt, char *file_name);
 void			export_bmp(char *filename, t_rt *my_mlx);
 void			create_bmp(t_rt *rt);
 
-// error
+/*
+** error
+*/
 void			handle_error(int errnum, char *message, t_rt *rt);
 void			handle_perror(char *message, t_rt *rt);
 void			handle_argument_error(char *message);
+
+/*
+** utils
+*/
+float			ft_sqr(float x);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 00:55:56 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/11 18:45:14 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:01:58 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_vector	vectornew(float a, float b, float c)
 
 float		squared_norm(const t_vector v)
 {
-	return (SQR(v.x) + SQR(v.y) + SQR(v.z));
+	return (ft_sqr(v.x) + ft_sqr(v.y) + ft_sqr(v.z));
 }
 
 float		norm(const t_vector v)

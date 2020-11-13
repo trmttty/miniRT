@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 02:16:29 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/12 10:09:53 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:03:25 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void		discriminant(t_rt *rt, t_ray *ray, t_discriminant *d)
 	v_ce = sub(ray->start, sp->sc);
 	d->a = dot(ray->dir, ray->dir);
 	d->b = 2 * dot(ray->dir, v_ce);
-	d->c = dot(v_ce, v_ce) - SQR(sp->diameter / 2.0f);
-	d->d = SQR(d->b) - 4 * d->a * d->c;
+	d->c = dot(v_ce, v_ce) - ft_sqr(sp->diameter / 2.0f);
+	d->d = ft_sqr(d->b) - 4 * d->a * d->c;
 }
 
 static float	calc_t(t_discriminant *d)
