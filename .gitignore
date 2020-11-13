@@ -3,3 +3,4 @@ miniRT
 test
 *.o
 *.bmp
+*.a

@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 15:00:17 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/14 01:16:57 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:36:43 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define CYLINDER	3
 # define TRIANGLE	4
 
-# define EPSILON 0.0001f
+# define EPSILON 0.001f
 # define BMP_FILE_HEADER_SIZE 14
 # define BMP_INFO_HEADER_SIZE 40
 # define HEADER_SIZE 122

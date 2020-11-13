@@ -1,8 +1,10 @@
-CC = gcc
-FLAGS =	-Wall -Wextra -Werror
-NAME = miniRT
-SRC_RT_DIR = ./src/
-OBJ_DIR = ./obj/
+CC			= gcc
+FLAGS		= -Wall -Wextra -Werror
+NAME 		= miniRT
+DIR_LIB		= libft
+LIBFT		= $(DIR_LIB)/libft.a
+SRC_RT_DIR 	= ./src/
+OBJ_DIR 	= ./obj/
 
 SRC_RT = main.c \
 			get_next_line.c \
@@ -38,31 +40,28 @@ OBJ_RT = $(addprefix $(OBJ_DIR),$(SRC_RT:%.c=%.o))
 OBJ = $(OBJ_RT)
 HEADERS = includes
 
-all	:$(NAME)
+all : $(NAME)
 
-$(NAME)		: $(OBJ_DIR) $(OBJ)
+$(NAME) : $(LIBFT) $(OBJ_DIR) $(OBJ_RT)
 	$(CC) -I $(HEADERS) -L minilibx -lmlx -framework OpenGL -framework AppKit -lz -L libft -lft $(OBJ) libmlx.dylib -o $@
 
-$(OBJ_DIR)	:
+$(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)%.o	: $(SRC_RT_DIR)%.c
+$(OBJ_DIR)%.o : $(SRC_RT_DIR)%.c
 	$(CC) -I $(HEADERS) -o $@ -c $<
 
-run			: $(NAME)
-	./$(NAME) scene/test.rt
+$(LIBFT):
+	make bonus -C $(DIR_LIB)
 
-test		: minilibx_test.c
-	gcc -Iminilibx -c minilibx_test.c -o test
-	gcc -Lminilibx -lmlx -framework OpenGL -framework AppKit test -o test
-	./test
-
-clean		:
+clean :
+	make clean -C $(DIR_LIB)
 	rm -rf $(OBJ_DIR)
 
-fclean		: clean
+fclean : clean
+	make fclean -C $(DIR_LIB)
 	rm -f $(NAME)
 
-re			: fclean all
+re : fclean all
 
 .PHONY: all clean fclean re run
