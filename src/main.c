@@ -6,7 +6,7 @@
 /*   By: ttarumot <ttarumot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 07:09:47 by ttarumot          #+#    #+#             */
-/*   Updated: 2020/11/13 10:48:17 by ttarumot         ###   ########.fr       */
+/*   Updated: 2020/11/13 12:11:29 by ttarumot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int			main(int argc, char *argv[])
 	rt.cam = (t_camera*)(rt.cam_crrnt->content);
 	// create_bmp_image(&rt, "test");
 	if (rt.save)
-		export_bmp("test", &rt);
+		create_bmp(&rt);
+		// export_bmp("test", &rt);
 	else
 	{
 		mlx_put_image_to_window(rt.mlx, rt.win, rt.cam->img.img, 0, 0);
